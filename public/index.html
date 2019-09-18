@@ -7,6 +7,7 @@
   <meta name="viewport" content="width=device-width,initial-scale=1.0">
   <link rel="icon" href="<%= BASE_URL %>favicon.ico">
   <link rel="stylesheet" href="http://at.alicdn.com/t/font_1352051_hso0mssogqi.css">
+  <script src="https://cdn.bootcss.com/mui/3.7.1/js/mui.js"></script>
   <title>油滴pad端</title>
  
   <!-- <script src='./mui/js/mui.js'></script>
@@ -59,7 +60,7 @@
 
 
 </body>
-<script>
+<!-- <script>
   // var height = window.innerHeight + 'px';//获取页面实际高度  
   // var width = window.innerWidth + 'px';
   // document.getElementById("bcid").style.height = height;
@@ -148,12 +149,12 @@
     });
   }
 
-</script>
-<script src="path/to/vconsole.min.js"></script>
+</script> -->
 
 
-<!-- <script>
+<script>
   document.addEventListener('plusready', function () {
+    var needQuite =['#/index','#/login']
     mui.init({
       //监听Android手机的back、menu按键  
       keyEventBind: {
@@ -164,7 +165,7 @@
     mui.back = function () {
       let hash = window.location.hash;
       // console.log(window.location.href)
-      if (!(hash.split('?')[0] === '#/index')) {
+      if ( !needQuite.includes(hash.split('?')[0])) {
         window.history.back(); //这里不建议修改自己跳转的路径  
       } else {
         //首次按键，提示‘再按一次退出应用’  
@@ -215,6 +216,6 @@
       }
     }, false);
   });  
-</script> -->
+</script>
 
 </html>

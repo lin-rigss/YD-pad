@@ -62,6 +62,10 @@ export default {
       })
         .then(() => {
           this.$router.push("/login");
+
+          // 设置退出的标记 
+          localStorage.removeItem('login')
+
         })
         .catch(() => {});
     },

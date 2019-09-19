@@ -133,7 +133,8 @@ export default {
       }
       login(param).then(res => {
         if (res.success) {
-          // debugger
+          // debugger        
+
           let userInfor = {
             ...res.data,
             token: res.token
@@ -157,6 +158,10 @@ export default {
 
           saveUserInfor(userInfor);
           this.$toast.success("登录成功");
+
+          // 设置登录的标记
+          localStorage.setItem('login',true)
+
           this.$router.push({
             path: "index",
             query: {

@@ -74,13 +74,13 @@
          </router-link>
          <router-link to="/details">
           <li>
-            <i class="iconfont icon-mingxi"></i>
+            <i class="iconfont icon-shezhi"></i>
             <span>拆解列表</span>
           </li>          
          </router-link>
           <router-link to="/list">
           <li>
-            <i class="iconfont icon-mingxi"></i>
+            <i class="iconfont icon-leimupinleifenleileibie2"></i>
             <span>排产列表</span>
           </li>          
          </router-link>

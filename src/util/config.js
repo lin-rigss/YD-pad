@@ -91,7 +91,7 @@ module.exports = {
 
       // 关于统货-货品录入
       // 1. 验证二维码 接口， 
-      check:`${IP}/service-coding/coding/check/th`, 
+      check:`${IP}/service-coding/coding/check/th`,       
       // 2. 货品种类 下拉菜单接口 ( 要传orderId )
       selectList:`${IP}/inventory/unify/goods/select/list`,
       // 3. 货品录入后 提交确认接口

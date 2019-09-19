@@ -160,7 +160,7 @@ export default {
     getShipmentData(){
       let params = {
         id:this.orderId
-        // id:'111333862147790671872'
+        // id:'111333909801283293184'
       }
       getShipment(params).then(res => {
         // debugger
@@ -170,7 +170,7 @@ export default {
               console.log(this.muchData)
               this.isLoading = false;
            }else{
-             this.isLoading = false;
+             this.isLoading = true;
               Toast({
                 message: '该编码无信息',
                 duration: 1000
@@ -215,7 +215,7 @@ export default {
               // 存储统货订单号
               // localStorage.setItem('orderId',this.muchData.id)
               
-              this.$router.push({name:'scan', params: {orderId:this.muchData.id}});             
+            this.$router.push({name:'scan', params: {orderId:this.muchData.id}});             
               }, 1300);
             } else if(res.data == null){
               setTimeout(() => {

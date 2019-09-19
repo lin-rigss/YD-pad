@@ -274,7 +274,7 @@ export default {
 
     // 货品种类  改变的方法
     goodsChange(){
-      console.log(this.goods)
+      // console.log(this.goods)
       // 通过id 获取 名称
       let newgoods = this.selectListData.filter(item => item.id == this.goods);
 
@@ -284,6 +284,7 @@ export default {
       // console.log(this.goodsName,this.id)
       this.unit = newgoods[0].unit;
       // console.log(this.unit)
+      // console.log(this.id)
 
 
       if (this.goodsName == "废发动机变速箱") {

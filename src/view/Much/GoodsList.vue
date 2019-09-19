@@ -4,9 +4,9 @@
     <div class="content">
       <van-loading class="loading" type="spinner" v-if="isLoading" color="#1989fa" />
       <div v-if="!isLoading">  
-         <div class="engineTitle">严选货品入库列表</div> 
+         <div class="engineTitle">统货到货列表</div> 
 
-         <div class="details-text" v-for="(item,index) in partsListData" :key="index" >
+         <!-- <div class="details-text" v-for="(item,index) in partsListData" :key="index" >
              <div class="info">
                 <div class="info-item">
                     <span class="name">时&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;间: </span>
@@ -28,12 +28,12 @@
                     <span class="value">{{item.dismantlingPlantName}}</span>
                 </div> 
              </div>            
-          </div>
+          </div> -->
 
-          <div class="tu" :style="note" v-if="!partsListData.length > 0" ></div>
+          <div class="tu" :style="note" v-if="!goodsListData.length > 0" ></div>
 
         <van-pagination 
-            v-if="partsListData.length > 0"
+            v-if="goodsListData.length > 0"
             class="details-box bottom-box " 
             v-model="partsPage" 
             :total-items="partsCount" 
@@ -59,13 +59,13 @@ Vue.use(Toast)
   .use(Tabs);
 
 import Header from "../../components/header/Header";
-import { partsList } from "../../api/goods"
+// import { } from "../../api/goods"
 export default {
   data() {
     return {
-      title: "严选入库详情",
+      title: "统货详情",
       isLoading:false,
-      partsListData:[],
+      goodsListData:[],
       partsPage:1,
       partsCount:0,
       note: {
@@ -79,25 +79,24 @@ export default {
     "app-header": Header
   },
   mounted(){   
-     this. getPartsListData();
+    //  this. getDoodsListData();
   },
   methods: {
     // 获取严选列表数据    
-    getPartsListData(){
+    getDoodsListData(){
       let params = {
         pageIndex:1,
         pageSize:10,
-        partStatus:10,
       }
-      partsList(params).then(res=>{
+     // xxxxxxx(params).then(res=>{
         //  debugger
-         if(res.success){
-             if(res.data !== null){
-                 this.partsListData = res.data;
-                 this.partsCount =  res.pageInfo.total
-             }           
-         }
-       })
+        //  if(res.success){
+        //      if(res.data !== null){
+        //          this.goodsListData = res.data;
+        //          this.partsCount =  res.pageInfo.total
+        //      }           
+        //  }
+      // })
     },
 
     confirm() {
@@ -117,12 +116,12 @@ export default {
         pageSize:10,
         partStatus:10,
       }
-       partsList(params).then(res=>{
-        //  debugger
-         if(res.success){
-             this.partsListData = res.data    
-         }
-       })
+    //   xxxxxx(params).then(res=>{
+    //     //  debugger
+    //      if(res.success){
+    //          this.partsListData = res.data    
+    //      }
+    //    })
     },
   },
  

@@ -71,6 +71,14 @@ const routes = [
       title: '统货'
     },
   },
+  {
+    name: 'goodslist',
+    path: '/goodslist',
+    component: () => import('./view/Much/GoodsList.vue'),
+    meta: {
+      title: '统货到货列表'
+    },
+  },
  
   {
     name: 'scan',

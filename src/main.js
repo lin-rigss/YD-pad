@@ -22,8 +22,6 @@ import { Field, Button, CellGroup, Checkbox, Picker, Popup, RadioGroup, Radio, A
 Vue.use(Field).use(Button).use(CellGroup).use(Checkbox).use(Picker).use(Popup).use(RadioGroup).use(Radio).use(AddressEdit).use(Dialog).use(Switch).use(Toast).use(Icon).use(Pagination).use(Loading).use(NavBar)
 
 
-
-
 // 组件的全局注册
 // import {
 //   Header,
@@ -38,11 +36,18 @@ Vue.use(Field).use(Button).use(CellGroup).use(Checkbox).use(Picker).use(Popup).u
 // Vue.component('icon-svg', IconSvg)
 
 
-store.subscribe((mutations, state) => {
-  // localStorage.setItem('partsList', JSON.stringify(state.partsList))
-  localStorage.setItem('partsList', state.partsList)
-  localStorage.setItem('badsList', state.badsList)
-})
+
+
+router.beforeEach((to, from, next) => {
+  const isLogin = localStorage.login ? true : false; 
+  if (to.path == '/login') {
+    next();
+  } else{
+    isLogin ? next() : next('/login')
+  }
+});
+
+
 
 window.$router = router
 new Vue({

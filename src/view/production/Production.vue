@@ -49,9 +49,8 @@
             </div>
           </div>
         </div>
-
     
-          <div class="production-box" v-if="isShow">
+        <div class="production-box" v-if="isShow">
             <div class="title borno">
               <i class="iconfont icon-zhuanhuan"></i>
               <h3>精拆转拆废</h3>
@@ -67,9 +66,9 @@
                 placeholder="填写拆废原因，最多20个字。"
               ></textarea>
             </div>
-          </div>
+        </div>
 
-          <div class="production-box bottom-box" v-if="flag">
+        <div class="production-box bottom-box" v-if="flag">
             <div class="title">
               <i class="iconfont icon-shezhi"></i>
               <h3>拆解产生产品</h3>
@@ -94,7 +93,7 @@
                 :class="{'pitch':badsIndex.includes(item.id)}"
               >{{item.nameZn}}</a>
             </div> 
-          </div>
+        </div>
     </div>
     </div>
     <div class="btn-footer">
@@ -145,7 +144,7 @@ export default {
   },
   mounted(){
      this.idCode = this.$route.params.idCode;  // 获取二维码的ID码
-     this.orderId = localStorage.getItem('orderId'), 
+    //  this.orderId = localStorage.getItem('orderId'), 
      this.getDetaildata();
      this.getFactoryData();
   },
@@ -328,7 +327,7 @@ export default {
   },
 
   watch:{
-    checked(newVal,oldVal){
+    checked(newVal){
       if(newVal){
         this.type = 'chaifei'
       } else{

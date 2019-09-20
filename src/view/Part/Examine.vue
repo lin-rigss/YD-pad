@@ -6,7 +6,7 @@
        <van-loading class="loading" type="spinner" v-if="isLoading" color="#1989fa"/>
 
        <div v-if="!isLoading">
-          <div class="part-info">
+          <div class="part-info" v-if="!imgflag">
             <div class="title">
               <i class="iconfont icon-xinxi"></i>
               <h3>验货信息</h3>
@@ -68,7 +68,7 @@
 
             </div>
           </div>
-          <div class="part-info">
+          <div class="part-info" v-if="!imgflag" >
             <div class="title">
               <i class="iconfont icon-tupian"></i>
               <h3>物流照片</h3>
@@ -79,8 +79,7 @@
               </li>
             </ul>
           </div>
-
-           <div class="part-info  bottom-store">
+           <div class="part-info  bottom-store" v-if="!imgflag" >
             <div class="title">
               <i class="iconfont icon-tupian"></i>
               <h3>验货照片</h3>
@@ -91,11 +90,13 @@
               </li>
             </ul>
           </div>
+
+           <div class="imgbg" :style="bg" v-if="imgflag" ></div>
         
        </div>
     </div>
 
-    <div class="btn-footer">
+    <div class="btn-footer" v-if="!imgflag">
       <button class="common-btn info" @click="confirm">确认验货</button>
     </div>
     <app-popup v-show="isShow" @cancel="isShow=false" @sure="fn" ref="popup"></app-popup>
@@ -130,6 +131,12 @@ export default {
       gIdsAry:[],
       gCodes:[],
       goodsNames:[],
+      bg: {
+        backgroundImage: "url(" + require("../../assets/image/null.png") + ")",
+        backgroundRepeat: "no-repeat",
+        backgroundSize: "2rem auto",        
+      },
+      imgflag:false,
     };
   },
   components: {
@@ -153,13 +160,16 @@ export default {
         //  debugger
         if(res.success){
           if(res.data == null){
-              Toast({
-                message: '该编码无信息',
-                duration: 1000
-              });
-              setTimeout(() => {
-                this.$router.push('/index');
-              }, 1300);
+              this.isLoading = false;
+              this.imgflag = true;
+              
+              // Toast({
+              //   message: '该编码无信息',
+              //   duration: 1000
+              // });
+              // setTimeout(() => {
+              //   this.$router.push('/index');
+              // }, 1300);
            }else if(res.data.status == '10'){
               Toast({
                 message: '该单已验货',
@@ -175,15 +185,14 @@ export default {
               this.brandId = this.partData.brandId.split(',');
               this.brandNames = this.partData.brandName.split(',');              
            }
-         } else{
-           this.isLoading = false;
-              Toast({
-                message: '该编码无信息',
-                duration: 1000
-              });
-              setTimeout(() => {
-                this.$router.push('/index');
-              }, 1300);
+         } 
+         else{               
+              this.isLoading = false;
+              this.imgflag = true;
+              // Toast({
+              //   message: '该编码无信息',
+              //   duration: 1000
+              // });
          }
        })
     },
@@ -338,6 +347,17 @@ export default {
 }
 .ti-bottom {
   margin-bottom: 0.2rem;
+}
+
+.imgbg{
+  width:2rem; 
+  height:2.6rem; 
+  position:fixed; 
+  top:50%; 
+  left:50%; 
+  transform:translate3d(-50%,-50%,0);   
+  // text-align: center;
+  // background-position: 0rem 0rem;
 }
 
 }

@@ -6,7 +6,7 @@
        <van-loading class="loading" type="spinner" v-if="isLoading" color="#1989fa"/>
 
        <div v-if="!isLoading">
-          <div class="part-info">
+          <div class="part-info" v-if="!imgflag">
             <div class="title">
               <i class="iconfont icon-xinxi"></i>
               <h3>入库信息</h3>
@@ -70,7 +70,7 @@
             </div>
           </div>
 
-          <div class="part-info">
+          <div class="part-info" v-if="!imgflag">
             <div class="title">
                <i class="iconfont icon-xinxi"></i>
               <h3>零件信息</h3>
@@ -116,7 +116,7 @@
             </div>           
           </div>
 
-           <div class="part-info">
+           <div class="part-info" v-if="!imgflag">
             <div class="title">
               <i class="iconfont icon-tupian"></i>
               <h3>验货照片</h3>
@@ -126,10 +126,9 @@
                 <img :src="item" alt @click="receive(index)" />
               </li>
             </ul>
-          </div>    
-        
+          </div>       
 
-          <div class="part-info bottom-store">
+          <div class="part-info bottom-store" v-if="!imgflag">
             <div class="title ti-bottom">
               <i class="iconfont icon-cangku"></i>
               <h3>选择仓位</h3>
@@ -200,11 +199,11 @@
             </div>
           </div>
 
-          
+           <div class="imgbg" :style="bg" v-if="imgflag" ></div>
        </div>
     </div>
 
-    <div class="btn-footer">
+    <div class="btn-footer" v-if="!imgflag">
       <button class="common-btn danger" @click="note">添加备注</button>
       <button class="common-btn info" @click="confirm">确认入库</button>
     </div>
@@ -278,7 +277,14 @@ export default {
       payStatus:'',
       partPrice:'', // 零件价格
       partUnit:'',
-      repositoryNames:[] // 存储仓位名称
+      repositoryNames:[], // 存储仓位名称
+
+      bg: {
+        backgroundImage: "url(" + require("../../assets/image/null.png") + ")",
+        backgroundRepeat: "no-repeat",
+        backgroundSize: "2rem auto",        
+      },
+      imgflag:false,
     };
   },
   components: {
@@ -303,13 +309,16 @@ export default {
         //  debugger
         if(res.success){
           if(res.data == null){
-             Toast({
-                message: '该编码无信息',
-                duration: 1000
-              });
-              setTimeout(() => {
-                this.$router.push('/index');
-              }, 1300);
+            this.isLoading = false;
+            this.imgflag = true;
+             
+            //  Toast({
+            //     message: '该编码无信息',
+            //     duration: 1000
+            //   });
+            //   setTimeout(() => {
+            //     this.$router.push('/index');
+            //   }, 1300);
          
         //  else if(res.data.status === '10'){
         //       Toast({
@@ -331,13 +340,14 @@ export default {
            }     
          }else{
              this.isLoading = false;
-              Toast({
-                message: '该编码无信息',
-                duration: 1000
-              });
-              setTimeout(() => {
-                this.$router.push('/index');
-              }, 1300);
+             this.imgflag = true;
+              // Toast({
+              //   message: '该编码无信息',
+              //   duration: 1000
+              // });
+              // setTimeout(() => {
+              //   this.$router.push('/index');
+              // }, 1300);
            }      
        })
     },
@@ -635,6 +645,15 @@ export default {
 }
 .marginb{
    margin-bottom: .4rem;
+}
+
+.imgbg{
+  width:2rem; 
+  height:2.6rem; 
+  position:fixed; 
+  top:50%; 
+  left:50%; 
+  transform:translate3d(-50%,-50%,0);   
 }
 
 }

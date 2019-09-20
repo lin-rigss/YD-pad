@@ -1,7 +1,7 @@
 import Vue from 'vue';
 import Router from 'vue-router';
 import { getUserInfor } from '@/util/dealStorage'
-// import { Toast } from 'vant'
+
 
 Vue.use(Router);
 
@@ -78,8 +78,7 @@ const routes = [
     meta: {
       title: '统货到货列表'
     },
-  },
- 
+  }, 
   {
     name: 'scan',
     path: '/scan',

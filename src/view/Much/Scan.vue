@@ -48,6 +48,7 @@ export default {
     successFun(result) {
       this.visible = false;
       this.scanResult = result;
+      
         // 验证二维码接口
         let params = {
           coding:this.scanResult

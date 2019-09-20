@@ -6,33 +6,23 @@
       <div v-if="!isLoading">  
          <div class="engineTitle">统货到货列表</div> 
 
-         <!-- <div class="details-text" v-for="(item,index) in partsListData" :key="index" >
+         <div class="details-text" v-for="(item,index) in goodsListData" :key="index" >
              <div class="info">
                 <div class="info-item">
-                    <span class="name">时&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;间: </span>
-                    <span class="value sign">{{item.createTime}}</span>
-                </div>
-
-                <div class="info-item">
                     <span class="name">货品名称:</span>
-                    <span class="value">{{item.brandName}}</span>
+                    <span class="value">{{item.goodsName}}</span>
                 </div> 
 
                 <div class="info-item">
-                    <span class="name">订单编号：</span>
-                    <span class="value">{{item.id}}</span>
-                </div>
-
-                <div class="info-item">
-                    <span class="name">供&nbsp;&nbsp;应&nbsp;&nbsp;商：</span>
-                    <span class="value">{{item.dismantlingPlantName}}</span>
-                </div> 
+                    <span class="name">货品重量：</span>
+                    <span class="value">{{item.goodsWeight}}千克</span>
+                </div>               
              </div>            
-          </div> -->
+          </div>
 
           <div class="tu" :style="note" v-if="!goodsListData.length > 0" ></div>
 
-        <van-pagination 
+        <!-- <van-pagination 
             v-if="goodsListData.length > 0"
             class="details-box bottom-box " 
             v-model="partsPage" 
@@ -40,13 +30,14 @@
             :show-page-size="3" 
             force-ellipses 
             @change="partsChange()"
-        />
+        /> -->
       </div>
     </div>  
 
-    <!-- <div class="btn-footer">
-      <button class="common-btn info" @click="confirm">确认</button>
-    </div> -->
+    <div class="btn-footer">
+      <button class="common-btn info" @click="additional">补录</button>
+       <button class="common-btn danger" @click="confirm">添加拆解任务</button>
+    </div>
   </div>
 </template>
 
@@ -59,12 +50,12 @@ Vue.use(Toast)
   .use(Tabs);
 
 import Header from "../../components/header/Header";
-// import { } from "../../api/goods"
 export default {
   data() {
     return {
       title: "统货详情",
       isLoading:false,
+      shipmentData:{}, // 统货全部数据
       goodsListData:[],
       partsPage:1,
       partsCount:0,
@@ -78,51 +69,37 @@ export default {
   components: {
     "app-header": Header
   },
-  mounted(){   
-    //  this. getDoodsListData();
+  mounted(){ 
+    this.shipmentData =JSON.parse(localStorage.getItem('shipmentData'));
+    this.goodsListData = this.shipmentData.goodsList;
   },
   methods: {
-    // 获取严选列表数据    
-    getDoodsListData(){
-      let params = {
-        pageIndex:1,
-        pageSize:10,
-      }
-     // xxxxxxx(params).then(res=>{
-        //  debugger
-        //  if(res.success){
-        //      if(res.data !== null){
-        //          this.goodsListData = res.data;
-        //          this.partsCount =  res.pageInfo.total
-        //      }           
-        //  }
-      // })
+    // 补录跳转方法
+    additional(){
+       
     },
 
+    // 拆解任务跳转方法
     confirm() {
-      // Toast({
-      //   message: "确认完成",
-      //   duration: 500
-      // });
       setTimeout(() => {
-        this.$router.push("/index");
+        this.$router.push({name:'scan', params: {orderId:this.shipmentData.id}});
       }, 650);
     },
 
 
-   partsChange(){
-      let params = {
-        pageIndex:this.partsPage,
-        pageSize:10,
-        partStatus:10,
-      }
-    //   xxxxxx(params).then(res=>{
-    //     //  debugger
-    //      if(res.success){
-    //          this.partsListData = res.data    
-    //      }
-    //    })
-    },
+  //  partsChange(){
+  //     let params = {
+  //       pageIndex:this.partsPage,
+  //       pageSize:10,
+  //       partStatus:10,
+  //     }
+  //   //   xxxxxx(params).then(res=>{
+  //   //     //  debugger
+  //   //      if(res.success){
+  //   //          this.partsListData = res.data    
+  //   //      }
+  //   //    })
+  //   },
   },
  
 };
@@ -186,7 +163,7 @@ ul {
   justify-content: center;
   align-items: center;
   .common-btn {
-    width: 100%;
+    width: 50%;
     height: 0.8rem;
     line-height: 0.8rem;
     color: #fff;

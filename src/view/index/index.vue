@@ -32,8 +32,12 @@
               </div>
              </li>
           </ul> -->
-       
-          <li class="much-img" @click="() => scan(3)">
+          
+
+          <!-- 测试统货扫码数据 -->
+          <li class="much-img" @click="getShipmentData">
+
+          <!-- <li class="much-img" @click="() => scan(3)"> -->
             <div class="wrapper-l" :style="note">
               <div class="title">统货验货</div>
               <button>
@@ -97,6 +101,8 @@ Vue.use(Toast);
 import Header from "../../components/header/Header";
 import { ScanBarcode } from "@/components/index";
 
+import { getShipment } from "../../api/goods"
+
 
 
 export default {
@@ -122,7 +128,8 @@ export default {
       rimg: {
         backgroundImage: "url(" + require("../../assets/image/box2.png") + ")",
         backgroundRepeat: "no-repeat"
-      }
+      },
+      shipmentData:{},  // 存储统货数据
     };
   },
   methods: {
@@ -159,22 +166,44 @@ export default {
           this.$router.push({name: 'part', params: {idCode: this.scanResult}});        
         }, 650);  
 
-    } else if(this.type == 3){       
-        Toast({
-          message: "扫码成功",
-          duration: 500
-        });
-        setTimeout(() => {
-          this.$router.push({name: 'shipment', params: {idCode: this.scanResult}});  
-        }, 650);                      
-    } else if(this.type == 4){
-        Toast({
-          message: "扫码成功",
-          duration: 500
-        });
-        setTimeout(() => {
-          this.$router.push({name: 'cargo', params: {idCode: this.scanResult}});       
-        }, 650);  
+    } else if(this.type == 3){
+       // 获取统货数据  
+      let params = {
+        // id:this.scanResult
+        id:'111333909801283293184'
+      }
+      getShipment(params).then(res => {
+        // debugger
+        if(res.success){
+           if(res.data !== null){
+              Toast({
+                message: "扫码成功",
+                duration: 500
+              });
+              this.shipmentData = res.data;
+              localStorage.setItem('shipmentData',JSON.stringify(this.shipmentData))
+              localStorage.setItem('orderId',this.scanResult)     
+              setTimeout(() => {
+                this.$router.push('/shipment');  
+              }, 650); 
+           }else{
+              Toast({
+                message: '该编码无信息',
+                duration: 800
+              });
+           }           
+         }
+      })     
+                             
+    // }
+    //  else if(this.type == 4){
+    //     Toast({
+    //       message: "扫码成功",
+    //       duration: 500
+    //     });
+    //     setTimeout(() => {
+    //       this.$router.push({name: 'cargo', params: {idCode: this.scanResult}});       
+    //     }, 650);  
 
     } else if(this.type == 5){       
         Toast({
@@ -185,7 +214,39 @@ export default {
           this.$router.push({name: 'production', params: {idCode: this.scanResult}});  
         }, 650);                      
     }               
-  }
+  },
+
+    //测试统货扫码数据
+    getShipmentData(){
+        // 获取统货数据  
+      let params = {
+        // id:this.scanResult
+        id:'111333909801283293184'
+      }
+      getShipment(params).then(res => {
+        // debugger
+        if(res.success){
+           if(res.data !== null){
+              this.shipmentData = res.data;
+              localStorage.setItem('shipmentData',JSON.stringify(this.shipmentData))
+              localStorage.setItem('orderId','111333909801283293184') 
+              Toast({
+                message: "扫码成功",
+                duration: 500
+              });
+              setTimeout(() => {
+                this.$router.push('/shipment');  
+              }, 650); 
+           }else{
+              Toast({
+                message: '该编码无信息',
+                duration: 800
+              });
+           }           
+         }
+      })     
+    },
+
   },
   components: {
     "app-header": Header,

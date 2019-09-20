@@ -152,35 +152,41 @@ export default {
   },
 
   mounted(){
-    this.orderId = this.$route.params.idCode;  // 获取二维码的ID码   
-    this.getShipmentData()
+    this.shipment();
+    // this.orderId = this.$route.params.idCode;  // 获取二维码的ID码   
+    // this.getShipmentData()
   },
   methods: {
     // 获取统货数据的方法
-    getShipmentData(){
-      let params = {
-        id:this.orderId
-        // id:'111333909801283293184'
-      }
-      getShipment(params).then(res => {
-        // debugger
-        if(res.success){
-           if(res.data !== null){
-              this.muchData = res.data;
-              console.log(this.muchData)
-              this.isLoading = false;
-           }else{
-             this.isLoading = true;
-              Toast({
-                message: '该编码无信息',
-                duration: 1000
-              });
-              setTimeout(() => {
-                this.$router.push('/index');
-              }, 1300);
-           }           
-         }
-      })
+    // getShipmentData(){
+    //   let params = {
+    //     id:this.orderId
+    //     // id:'111333909801283293184'
+    //   }
+    //   getShipment(params).then(res => {
+    //     // debugger
+    //     if(res.success){
+    //        if(res.data !== null){
+    //           this.muchData = res.data;
+    //           console.log(this.muchData)
+    //           this.isLoading = false;
+    //        }else{
+    //          this.isLoading = true;
+    //           Toast({
+    //             message: '该编码无信息',
+    //             duration: 1000
+    //           });
+    //           setTimeout(() => {
+    //             this.$router.push('/index');
+    //           }, 1300);
+    //        }           
+    //      }
+    //   })
+    // },
+
+    shipment(){
+       this.muchData =JSON.parse(localStorage.getItem('shipmentData'))  ;    
+       this.isLoading = localStorage.shipmentData ? false : true;
     },
 
     // 确认提交
@@ -211,17 +217,14 @@ export default {
             duration: 1000
           });
           setTimeout(() => {
-
-              // 存储统货订单号
-              // localStorage.setItem('orderId',this.muchData.id)
-              
-            this.$router.push({name:'scan', params: {orderId:this.muchData.id}});             
-              }, 1300);
-            } else if(res.data == null){
-              setTimeout(() => {
-                    this.$router.push('/index');
-              }, 1300);
-            }
+             this.$router.push('/goodslist');              
+            // this.$router.push({name:'scan', params: {orderId:this.muchData.id}});             
+            }, 1300);
+        } else{ 
+            setTimeout(() => {
+              this.$router.push('/index');
+            }, 1300);
+        }
       })     
     },   
     vehicle(i) {

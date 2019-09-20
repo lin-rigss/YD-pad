@@ -222,8 +222,8 @@ export default {
   },
   mounted(){
     this.idCode = this.$route.params.idCode;  // 获取二维码的ID码 
-    this.orderId =this.$route.params.orderId;   
-    // this.orderId =localStorage.getItem('orderId');   
+    // this.orderId =this.$route.params.orderId;   
+    this.orderId =localStorage.getItem('orderId');   
     this.getFactoryData(); // 品牌型号
     this.getSelectListData();  // 获取货品种类下拉菜单
   },
